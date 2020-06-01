@@ -1,1 +1,6 @@
 /pictures
+/vae_mlp
+vae_mlp_mnist.h5
+vae_mlp_decoder.png
+vae_mlp_encoder.png
+vae_mlp.png

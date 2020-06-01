@@ -103,3 +103,13 @@ plt.show()
 
 # We can also have a look at the 128-dimensional encoded representations.
 # These representations are 8x4x4, so we reshape them to 4x32 in order to be able to display them as grayscale images.
+
+n = 10
+plt.figure(figsize=(20, 8))
+for i in range(n):
+    ax = plt.subplot(1, n, i)
+    plt.imshow(encoded_imgs[i].reshape(4, 4 * 8).T)
+    plt.gray()
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+plt.show()
