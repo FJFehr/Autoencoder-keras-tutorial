@@ -2,11 +2,15 @@
 # Fabio Fehr
 # 1 June 2020
 
-# This code shows the construction of a linear AE being used for the MNIST dataset
-
+# This code shows the construction of a non-linear AE being used for the MNIST dataset
+# The only difference is that the AE encodes with a relu and decodes with a sigmoid
+# Much more impressive results
 
 from keras.layers import Input, Dense
 from keras.models import Model
+
+# this is the size of our encoded representations "Bottleneck"
+encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
 
 # this is the size of our encoded representations "Bottleneck"
 encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input is 784 floats
@@ -15,10 +19,10 @@ encoding_dim = 32  # 32 floats -> compression of factor 24.5, assuming the input
 input_img = Input(shape=(784,))
 
 # "encoded" is the encoded representation of the input
-encoded = Dense(encoding_dim, activation='linear')(input_img)
+encoded = Dense(encoding_dim, activation='relu')(input_img)
 
 # "decoded" is the lossy reconstruction of the input
-decoded = Dense(784, activation='linear')(encoded)
+decoded = Dense(784, activation='sigmoid')(encoded)
 
 # this model maps an input to its reconstruction
 autoencoder = Model(input_img, decoded)
@@ -69,6 +73,10 @@ autoencoder.fit(x_train, x_train,
 # note that we take them from the *test* set
 encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
+
+###########################################################################################################
+# Visualisation of output #################################################################################
+###########################################################################################################
 
 import matplotlib.pyplot as plt
 
